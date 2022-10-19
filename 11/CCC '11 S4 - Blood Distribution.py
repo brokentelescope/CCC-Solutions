@@ -1,113 +1,105 @@
-units = [int(x) for x in input().split(" ")]
-patients = [int(x) for x in input().split(" ")]
+have = [int(x) for x in input().split()]
+give = [int(x) for x in input().split()]
 
-u_or = units.copy()
-p_or = patients.copy()
+have.insert(0, "a")
+give.insert(0, "a")
 
-# 0 O-
-# 1 O+ 
-# 2 A-
-# 3 A+
-# 4 B-
-# 5 B+
-# 6 AB-
-# 7 AB+
+graph = [[0]*18 for x in range(18)]
 
-def blood(p, u):
-    give = min(units[u],patients[p])
-    units[u] -= give
-    patients[p] -= give
+for x in range(1,9):
+    graph[0][x] = have[x] 
 
-    return give
+for x in range(1,9):
+    graph[x+8][-1] = give[x]
 
-total = 0
-#NEGATIVE FIRST
 #O-
-total += blood(0,0)
+n=1
+for x in range(9, 17):
+    graph[n][x] = give[x-8]
+
 #O+
-total += blood(1,1)
-total += blood(1,0)
+n=2 
+graph[n][n+8] = float('inf')
+graph[n][12] = float('inf')
+graph[n][14] = float('inf')
+graph[n][16] = float('inf')
+
 #A-
-total += blood(2,2)
-total += blood(2,0)
-#B-
-total += blood(4,4)
-total += blood(4,0)
+n=3
+graph[n][n+8] = float('inf')
+graph[n][12] = float('inf')
+graph[n][15] = float('inf')
+graph[n][16] = float('inf')
 
-#A+ 
-total += blood(3,3)
-total += blood(3,1)
-#B+
-total += blood(5,5)
-total += blood(5,1)
 #A+
-total += blood(3,2)
-total += blood(3,0)
+n=4
+graph[n][n+8] = float('inf')
+graph[n][16] = float('inf')
+
+#B-
+n=5
+graph[n][n+8] = float('inf')
+graph[n][14] = float('inf')
+graph[n][15] = float('inf')
+graph[n][16] = float('inf')
+
 #B+
-total += blood(5,4)
-total += blood(5,0)
+n=6
+graph[n][n+8] = float('inf')
+graph[n][16] = float('inf')
 
-
-#AB- 
-total += blood(6,6)
-total += blood(6,4)
-total += blood(6,2)
-total += blood(6,0)
+#AB-
+n=7
+graph[n][n+8] = float('inf')
+graph[n][16] = float('inf')
 
 #AB+
-total += blood(7,7)
-total += blood(7,6)
-total += blood(7,5)
-total += blood(7,4)
-total += blood(7,3)
-total += blood(7,2)
-total += blood(7,1)
-total += blood(7,0)
+n=8
+graph[n][n+8] = float('inf')
 
+# for x in graph:
+#     print(x)
+ 
+class Graph:
+    def __init__(self, graph):
+        self.graph = graph
+        self. ROW = len(graph)
+    def BFS(self, s, t, parent):
+        visited = [False]*(self.ROW)
+        queue = []
+        queue.append(s)
+        visited[s] = True
+        while queue:
+            u = queue.pop(0)
+            for ind, val in enumerate(self.graph[u]):
+                if visited[ind] == False and val > 0:
+                    queue.append(ind)
+                    visited[ind] = True
+                    parent[ind] = u
+                    if ind == t:
+                        return True
+        return False
+    def FordFulkerson(self, source, sink):
+        parent = [-1]*(self.ROW)
+        max_flow = 0
+ 
+        while self.BFS(source, sink, parent) :
+            path_flow = float("Inf")
+            s = sink
+            while(s !=  source):
+                path_flow = min (path_flow, self.graph[parent[s]][s])
+                s = parent[s]
+            max_flow +=  path_flow
+            v = sink
+            while(v !=  source):
+                u = parent[v]
+                self.graph[u][v] -= path_flow
+                self.graph[v][u] += path_flow
+                v = parent[v]
+ 
+        return max_flow
 
-total1 = 0
-
-units, patients = u_or, p_or
-#O FIRST       
-#O-
-total1 += blood(0,0)
-#O+
-total1 += blood(1,1)
-total1 += blood(1,0)
-#A-
-total1 += blood(2,2)
-total1 += blood(2,0)
-#B-
-total1 += blood(4,4)
-total1 += blood(4,0)
-
-#A+ 
-total1 += blood(3,3)
-total1 += blood(3,2)
-#B+
-total1 += blood(5,5)
-total1 += blood(5,4)
-#A+
-total1 += blood(3,1)
-total1 += blood(3,0)
-#B+
-total1 += blood(5,1)
-total1 += blood(5,0)
-
-#AB- 
-total1 += blood(6,6)
-total1 += blood(6,4)
-total1 += blood(6,2)
-total1 += blood(6,0)
-
-#AB+
-total1 += blood(7,7)
-total1 += blood(7,6)
-total1 += blood(7,5)
-total1 += blood(7,4)
-total1 += blood(7,3)
-total1 += blood(7,2)
-total1 += blood(7,1)
-total1 += blood(7,0)
-
-print(max(total,total1))
+g = Graph(graph)
+   
+print (g.FordFulkerson(0, 17))
+ 
