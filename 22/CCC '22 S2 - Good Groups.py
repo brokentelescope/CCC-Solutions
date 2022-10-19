@@ -1,6 +1,3 @@
-from re import L
-
-
 hm_tog = int(input())
 
 together = {}
