@@ -36,12 +36,6 @@ int main() {
         graph[b].push_back({c, a}); 
     }
     
-    // for (int x = 0; x < n; x++) {
-    //     // for (pair<int, int> y: graph[x]) {
-    //     //     cout << y.first<< " " << y.second << "   ";
-    //     // }
-    //     // cout << endl;
-    // }
     for (int x = 0, a; x < d; x++) {
         cin >> a; dest[a] = true;
     }
