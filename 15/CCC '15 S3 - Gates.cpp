@@ -1,26 +1,38 @@
-root = [0] * 100001
+#include <bits/stdc++.h>
 
-def find(x): 
-    if x!=root[x]:
-        root[x] = find(root[x])
-    return root[x]
+using namespace std;
 
-def merge(x,y): 
-    root[find(x)] = find(y)
+const int mm = 1e5+1;
+int parent[mm]; 
 
-g = int(input())
-p = int(input())
-for i in range(1,g+1):
-    root[i] = i
-i = 0
-kontinue = True
-while i < p and kontinue:
-    wanted = int(input())
-    root = find(wanted)
-    if root == 0:
-        print(i)
-        kontinue = False 
-    merge(root,root-1)
-    i = i + 1
-if kontinue:    
-    print(p)
+int find(int x) {
+    if (parent[x] != x) {
+        parent[x] = find(parent[x]); 
+    }
+    return parent[x];
+}
+
+void unionn(int x, int y) {
+    int xx = find(x); int yy = find(y);
+    parent[xx] = yy;
+}
+
+int main() {
+    cin.sync_with_stdio(0); cin.tie(0);    
+    int g, p; cin >> g >> p;
+
+    for (int x = 0; x < mm; x++) parent[x] = x;
+
+    int cnt = 0;
+
+    for (int x = 0; x < p; x++) {
+        int plane; cin >> plane;
+        plane = find(plane);
+        if (plane == 0) {
+            break;
+        }
+        unionn(plane, plane-1);
+        cnt ++;
+    }
+    cout << cnt;
+}   
