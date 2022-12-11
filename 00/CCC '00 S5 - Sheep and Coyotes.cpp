@@ -1,3 +1,7 @@
+//passes all ccc cases, doesn't pass dmoj case 6
+//the decimal precision isn't enough 
+//maybe try making the positions integers by multiplying by 100 
+
 #include <bits/stdc++.h>
 
 using namespace std;
