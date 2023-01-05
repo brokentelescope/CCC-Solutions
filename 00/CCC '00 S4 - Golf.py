@@ -1,3 +1,5 @@
+# BFS approach
+
 from collections import deque
 
 dist = int(input())
