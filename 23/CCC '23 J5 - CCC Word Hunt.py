@@ -37,9 +37,7 @@ def solve(r, c, dir, idx, switch=True):
         
     # switch directions 
     # you can't switch on the first move because that would just generate duplicate paths
-    # i ran into this problem during the actual ccc 
-    # instead of fixing it i just kept track of the paths
-    # and added them to a set and returned the length of the set
+
     if switch and idx != 1:
         dir2 = (dir[1], -dir[0])
         r2 = r + dir2[0]
