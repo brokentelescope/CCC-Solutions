@@ -1,38 +1,33 @@
-constraints = {1:[2], 2:[], 3:[], 4:[1,3], 5:[3], 6:[], 7:[1]}
+c = [[] for x in range(8)]
 
-completed = []
+c[1] = [2]
+c[4] = [1, 3]
+c[5] = [3]
+c[7] = [1]
 
-while True:
-    one = int(input())
-    two = int(input())
+while 1:
+    a, b = int(input()), int(input())
 
-    if one == 0 and two == 0:
-        break
+    if a == 0 and b == 0: break 
 
-    constraints[two].append(one)
+    c[b].append(a)
 
-for x in range(7):
-    for x in range(1,8):
-        if len(constraints[x]) == 0 and x not in completed:
-            completed.append(x)
+for x in range(1, 8):
+    c[x].sort()
 
-            for y in range(1,8):
-                if x in constraints[y]:
-                    constraints[y] = [z for z in constraints[y] if z != x]
-            
-            break
+ans = []
 
-if len(completed) == 7:
-    print(" ".join([str(x) for x in completed]))
+for _ in range(7):
+    for x in range(1, 8):
+        if str(x) not in ans:
+            if not c[x]:
+                ans.append(str(x))
+                for y in range(1, 8):
+                    if x in c[y]:
+                        c[y].remove(x)
+                break
 
+if len(ans) == 7:
+    print(" ".join(ans))
 else:
     print("Cannot complete these tasks. Going to bed.")
-
-
-        
-    
-                
-
-
-
-
