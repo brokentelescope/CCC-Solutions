@@ -1,4 +1,5 @@
-# BFS HARD MODE
+# this is bfs hard mode
+# so many implementation details
 
 from collections import deque
 import sys; input = sys.stdin.readline 
@@ -33,6 +34,9 @@ cnt = 1
 cammed = [[0] * m for x in range(n)]
 
 # CAMERAS
+# for each camera, loop in all 4 directions
+# mark everything is cammed until u hit a wall
+
 for curx, cury in cams:
     cammed[curx][cury] = 1
     for x in range(-1, 2):
@@ -56,6 +60,13 @@ key = {
 }
 
 # CONVEYORS
+# if the conveyor leads into a wall or an infinte loop, return -1
+# otherwise return the coords of where the conveyor drops u
+# to deal with infinite loops create a visited array to store 
+# visited conveyors
+
+# can definitely optimize by memoizing, but im too lazy
+
 def solve(curx, cury, x, y, vis):
 
     vis.add((curx, cury))
