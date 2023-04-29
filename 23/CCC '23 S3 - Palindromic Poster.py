@@ -1,7 +1,5 @@
 n, m, r, c = [int(x) for x in input().split()] 
 
-# https://dmoj.ca/problem/ccc23s3/editorial 
-
 flag = True 
 
 rotated = False 
