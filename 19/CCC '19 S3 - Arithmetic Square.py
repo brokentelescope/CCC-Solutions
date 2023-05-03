@@ -1,6 +1,4 @@
-# lord please forgive me for this code
-# lord please forgive me for this code
-# lord please forgive me for this code
+# please forgive me for this disgusting code
 
 # if there are two values in a row/col, u can fill that row/col 
 # this can solve most grids
