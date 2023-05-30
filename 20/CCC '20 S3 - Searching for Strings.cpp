@@ -1,3 +1,7 @@
+// this question is so hard god damnbro 
+// rolling hash algorithm
+// have to optimize calculating powers or else it will TLE
+
 #include <bits/stdc++.h>
 
 using namespace std;
