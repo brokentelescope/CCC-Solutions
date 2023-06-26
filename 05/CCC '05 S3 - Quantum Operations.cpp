@@ -62,22 +62,6 @@ int main() {
     int maxCol = -1e9;
     int minCol = 1e9;
 
-    // for (int x = 0; x < r; x++) {
-    //     int rowSum = 0;
-    //     int colSum = 0;
-    //     for (int y = 0; y < c; y++) {
-    //         maxElem = max(maxElem, a[x][y]);
-    //         minElem = min(minElem, a[x][y]);
-
-    //         rowSum += a[x][y];
-    //         colSum += a[y][x];
-    //     }
-    //     maxRow = max(maxRow, rowSum);
-    //     minRow = min(minRow, rowSum);
-    //     maxCol = max(maxCol, colSum);
-    //     minCol = min(minCol, colSum);
-    // }
-
     for (int x = 0; x < r; x++) {
         for (int y = 0; y < c; y++) {
             maxElem = max(maxElem, a[x][y]);
@@ -102,8 +86,7 @@ int main() {
         maxCol = max(maxCol, colSum);
         minCol = min(minCol, colSum);
     }
-
-
+    
     cout << maxElem << "\n";
     cout << minElem << "\n";
     cout << maxRow << "\n";
