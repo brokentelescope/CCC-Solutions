@@ -2,62 +2,48 @@
 
 using namespace std;
 
-const int mm = 1e4+1;
+typedef pair<int, int> pi;
 
-bool vis[mm];
-bool dest[mm];
-int key[mm];
-int n;
-vector<pair<int, int>> graph[mm];
+const int mm = 2e5+5;
+int n, m, d, best[mm];
 
-int maxkey() {
-    int max = 0;
-    int mindex;
-    for (int x = 0; x <= n; x++) {
-        if (key[x] > max && !vis[x]) {
-            max = key[x];
-            mindex = x;
-        }
-    }
-    return mindex;
-}
+vector<pi> graph[mm];
+priority_queue<pi> q;
 
 int main() {
     cin.sync_with_stdio(0); cin.tie(0);    
-    int m, d; cin >> n >> m >> d;
 
-    for (int x = 0; x < mm; x++) {
-        key[x] = 0; vis[x] = false; dest[x] = false;
-    }
+    cin >> n >> m >> d;
 
-    for (int x = 0; x < m; x++) {
+    for (int x = 1; x <= m; x++) {
+        best[x] = 0;
         int a, b, c; cin >> a >> b >> c;
-        graph[a].push_back({c, b}); 
-        graph[b].push_back({c, a}); 
-    }
-    
-    for (int x = 0, a; x < d; x++) {
-        cin >> a; dest[a] = true;
+        graph[a].push_back({b,c});
+        graph[b].push_back({a,c});
     }
 
-    key[1] = numeric_limits<int>::max();
+    best[1] = 1e9;
 
-    for (int x = 0 ; x < n; x++) {
-        int node = maxkey();
-        vis[node] = true;
-        for (pair<int, int> next: graph[node]) {
-            if (!vis[next.second] && key[next.second] < next.first) {
-                key[next.second] = next.first;
+    q.push({1e9, 1});
+
+    while (!q.empty()) {
+        int node = q.top().second; q.pop();
+
+        for (pi x: graph[node]) {
+            int v = x.first, w = x.second;
+            if (min(best[node], w) > best[v]) {
+                best[v] = min(best[node], w);
+                q.push({best[v], v});
             }
         }
     }
 
-    int max = numeric_limits<int>::max(); 
+    int ans = 1e9;
 
-    for (int x = 1; x <= n; x++) { 
-        if (dest[x]) {
-            max = min(max, key[x]);
-        }
+    for (int x = 0; x < d; x++) {
+        int i; cin >> i; 
+        ans = min(ans, best[i]);
     }
-    cout << max;
+
+    cout << ans << "\n";
 }
