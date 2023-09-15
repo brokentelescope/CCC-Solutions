@@ -10,6 +10,9 @@ int sum(int a, int b) {
     return psa[b] - psa[a-1];
 }
 
+// dp[i][b] represents the best score u can get 
+// at pin i with b balls left
+
 int f(int i, int b) {
 
     if (i > n) return 0;
@@ -17,7 +20,10 @@ int f(int i, int b) {
 
     if (dp[i][b] != -1) return dp[i][b];
 
+    // we can either use a ball at pin i and get the sum of pins from i->i+w-1
+    // then move to pin i+w and subtract a ball
     int a = f(i+w, b-1) + sum(i, i+w-1);
+    // or we can move to the next pin and dont use any balls
     int c = f(i+1, b);
 
     return dp[i][b] = max(a, c);
