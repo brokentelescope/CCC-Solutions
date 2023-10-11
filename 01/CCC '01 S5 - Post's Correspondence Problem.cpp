@@ -1,6 +1,3 @@
-// pure brute force solution 
-// almost tle's in c++ kekw
-
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -28,16 +25,18 @@ int main() {
     for (int x = 1; x <= n; x++) cin >> a[x];
     for (int x = 1; x <= n; x++) cin >> b[x];
 
-    vector<vector<int>> q;
+    vector<pair<vector<int>, int>> q;
 
-    q.push_back({});
+    q.push_back({{}, 0});
 
     vector<int> ans = {-1};
 
     while (!q.empty()) {
-        vector<int> cur = q.back(); q.pop_back();
-
-        if (check(cur)) {
+        vector<int> cur = q.back().first;
+        int cnt = q.back().second;
+        q.pop_back();
+        
+        if (cnt == 0 && check(cur)) {
             ans = cur; 
             break;
         }
@@ -46,7 +45,7 @@ int main() {
 
         for (int x = 1; x <= n; x++) {
             cur.push_back(x);
-            q.push_back(cur);
+            q.push_back({cur, cnt + a[x].length() - b[x].length()});
             cur.pop_back();
         }
     }
