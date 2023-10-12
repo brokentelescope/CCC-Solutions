@@ -11,8 +11,10 @@ map<int, int> mp;
 ld ans = 0;
 
 // idea is to sort the scores, assign each score a rank from 1 to n 
+// lowest score is 1, highest score is n
 // then use binary indexed tree to see how many values are below a[x]
 // query(n) returns how many ranks below n there are 
+// the number of ranks less than n is how many scores you beat
 
 void update(int idx, int val) {
     for (int x = idx; x < mm; x += x & -x) {
